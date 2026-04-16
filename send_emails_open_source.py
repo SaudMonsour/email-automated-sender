@@ -7,18 +7,19 @@ from email.mime.base import MIMEBase
 from email import encoders
 import os
 
-# ─────────────────────────────────────────────
-#  ✏️  CONFIGURE THESE BEFORE RUNNING
-# ─────────────────────────────────────────────
 
+# CONFIGURE THESE BEFORE RUNNING
 SENDER_EMAIL    = "your_email@gmail.com"       # Your Gmail address
-SENDER_PASSWORD = "your_app_password_here"     # Gmail App Password (NOT your normal password)
+SENDER_PASSWORD = "your_app_password_here"     # Gmail App Password (NOT your normal password) For More Information Watch This Video: https://youtube.com/shorts/Ar340gxwhTs?si=XfjZ2NAEyXjA9fsD
 YOUR_NAME       = "Your Full Name"             # Your name for the signature
 CV_FILE_PATH    = "cv.pdf"                     # Path to your CV file (e.g. "cv.pdf" or "/home/user/cv.pdf")
 CSV_FILE        = "companies.csv"              # Path to the CSV file with emails
 
+# This is The Title of Your Email, Change it Based on Your Prefrences
 EMAIL_SUBJECT   = "Job Application – Seeking a Professional Opportunity"
 
+
+# This is The Email itself , Change it Based on Your Prefrences
 EMAIL_BODY = f"""Dear Hiring Manager,
 
 I hope this message finds you well. I am writing to express my sincere interest in joining your esteemed organization.
@@ -33,10 +34,7 @@ Best regards,
 {YOUR_NAME}
 """
 
-# ─────────────────────────────────────────────
-#  📨  SEND FUNCTION  (don't edit below)
-# ─────────────────────────────────────────────
-
+# SEND FUNCTION  (don't edit below)
 def send_email(sender, password, recipient, subject, body, cv_path):
     msg = MIMEMultipart()
     msg["From"]    = sender
@@ -56,7 +54,7 @@ def send_email(sender, password, recipient, subject, body, cv_path):
         )
         msg.attach(part)
     else:
-        print(f"  ⚠️  CV file not found at '{cv_path}' — sending without attachment.")
+        print(f"CV file not found at '{cv_path}' — sending without attachment.")
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.login(sender, password)
@@ -72,9 +70,9 @@ def main():
         reader = csv.DictReader(f)
         emails = [row["email"].strip() for row in reader if row.get("email", "").strip()]
 
-    print(f"📋  Found {len(emails)} emails in {CSV_FILE}")
-    print(f"📎  CV file : {CV_FILE_PATH}")
-    print(f"📤  Sender  : {SENDER_EMAIL}\n")
+    print(f"Found {len(emails)} emails in {CSV_FILE}")
+    print(f"CV file : {CV_FILE_PATH}")
+    print(f"Sender  : {SENDER_EMAIL}\n")
     print("─" * 50)
 
     success, failed = 0, []
